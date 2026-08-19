@@ -1,5 +1,6 @@
 "use client";
 import CanvasSequence from "@/components/CanvasSequence";
+import ParticlesBackground from "@/components/ParticlesBackground";
 import { useRef, useState } from "react";
 import { ChevronDown, ArrowRight, MapPin, Mail, ExternalLink } from "lucide-react";
 import gsap from "gsap";
@@ -155,8 +156,9 @@ export default function Home() {
 
       {/* --- BENTO GRID --- */}
       <section className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 py-32 z-10" style={{ transformStyle: "preserve-3d", perspective: "1200px" }}>
+        <ParticlesBackground />
         
-        <div className="mb-32 text-center max-w-4xl mx-auto bento-card origin-center">
+        <div className="mb-32 text-center max-w-4xl mx-auto bento-card origin-center relative z-10">
           <h2 className="text-6xl md:text-8xl font-serif text-white mb-8">La Forma del <span className="italic text-[#ff0163]">Movimiento</span></h2>
           <p className="text-zinc-400 text-xl font-light leading-relaxed">
             Nuestros cortes se adaptan a la silueta con precisión arquitectónica. Descubre cómo las telas premium cobran vida al deslizar.
