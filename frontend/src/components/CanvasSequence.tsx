@@ -12,6 +12,10 @@ export default function CanvasSequence() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const textOverlayRef = useRef<HTMLDivElement>(null);
+  
+  const text1Ref = useRef<HTMLDivElement>(null);
+  const text2Ref = useRef<HTMLDivElement>(null);
+  const text3Ref = useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
     const canvas = canvasRef.current;
@@ -36,7 +40,6 @@ export default function CanvasSequence() {
     function render() {
       if (!canvas || !context) return;
       
-      // Es vital asegurar que el índice sea un número entero
       const currentFrameIndex = Math.round(seq.frame);
       const img = images[currentFrameIndex];
       
@@ -63,12 +66,13 @@ export default function CanvasSequence() {
         trigger: containerRef.current,
         start: "top top",
         end: "+=5000",
-        scrub: 0.5,
+        scrub: 1,
         pin: true,
+        anticipatePin: 1,
       }
     });
 
-    // La animación de la secuencia de fotos toma toda la duración (hasta 1)
+    // 1. Animación del canvas (Ocupa de 0 a 1 en el timeline)
     tl.to(seq, {
       frame: frameCount - 1,
       snap: "frame", 
@@ -77,7 +81,7 @@ export default function CanvasSequence() {
       onUpdate: render, 
     }, 0);
 
-    // Efecto 3D de salida para el título: 
+    // 2. Efecto de salida del Título principal
     tl.to(textOverlayRef.current, {
       opacity: 0,
       y: -150,
@@ -86,20 +90,57 @@ export default function CanvasSequence() {
       ease: "power2.inOut"
     }, 0);
 
+    // 3. Scrollytelling: Textos intermedios
+    // Texto 1
+    tl.fromTo(text1Ref.current, 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0.15);
+    tl.to(text1Ref.current, 
+      { opacity: 0, y: -50, duration: 0.1, ease: "power2.in" }, 0.35);
+
+    // Texto 2
+    tl.fromTo(text2Ref.current, 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0.45);
+    tl.to(text2Ref.current, 
+      { opacity: 0, y: -50, duration: 0.1, ease: "power2.in" }, 0.65);
+
+    // Texto 3
+    tl.fromTo(text3Ref.current, 
+      { opacity: 0, y: 50 }, 
+      { opacity: 1, y: 0, duration: 0.1, ease: "power2.out" }, 0.75);
+    tl.to(text3Ref.current, 
+      { opacity: 0, y: -50, duration: 0.1, ease: "power2.in" }, 0.95);
+
     return () => window.removeEventListener("resize", render);
   }, { scope: containerRef });
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-[#0a0a0c] overflow-hidden">
+    // Es crítico usar z-0 para que la siguiente sección pueda pasar por encima (z-10 o superior)
+    <section ref={containerRef} className="relative w-full h-screen bg-[#0a0a0c] overflow-hidden z-0">
       <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />
       
-      {/* Overlay del texto controlado por GSAP para su salida 3D */}
-      <div ref={textOverlayRef} className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none mix-blend-difference z-10 origin-center">
-         <h1 className="text-white text-7xl md:text-[10rem] font-serif text-center leading-none tracking-tight">DonnaModa</h1>
-         <p className="text-zinc-300 mt-6 tracking-[0.3em] uppercase text-sm font-sans animate-pulse">Desliza para descubrir</p>
+      {/* Título Principal y Logo */}
+      <div ref={textOverlayRef} className="absolute inset-0 flex flex-col items-center justify-center z-10 origin-center pointer-events-none drop-shadow-2xl">
+         <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa" className="h-24 md:h-40 w-auto mb-4 object-contain brightness-0 invert" />
+         <p className="text-[#ff0163] mt-6 tracking-[0.3em] uppercase text-sm font-sans animate-pulse font-bold">Desliza para descubrir</p>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-[#0f0f11] to-transparent z-20 pointer-events-none" />
+      {/* Scrollytelling Overlays */}
+      <div ref={text1Ref} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-0 mix-blend-difference">
+         <h2 className="text-white text-5xl md:text-8xl font-serif tracking-widest uppercase">Precisión.</h2>
+      </div>
+      
+      <div ref={text2Ref} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-0 mix-blend-difference">
+         <h2 className="text-white text-5xl md:text-8xl font-serif tracking-widest uppercase">Estructura.</h2>
+      </div>
+      
+      <div ref={text3Ref} className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 opacity-0 mix-blend-difference">
+         <h2 className="text-white text-5xl md:text-8xl font-serif tracking-widest uppercase">Movimiento.</h2>
+      </div>
+
+      {/* Gradiente inferior para ayudar a la transición del glassmorfismo de la siguiente sección */}
+      <div className="absolute bottom-0 left-0 w-full h-48 bg-gradient-to-t from-[#0a0a0c] to-transparent z-20 pointer-events-none opacity-80" />
     </section>
   );
 }
