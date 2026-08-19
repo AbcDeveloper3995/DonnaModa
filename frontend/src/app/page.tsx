@@ -54,6 +54,55 @@ export default function Home() {
       );
     });
 
+    // === EFECTOS 3D PARA LA SECCIÓN DE FILOSOFÍA ===
+    const philoContainer = document.querySelector('.philo-container');
+    if (philoContainer) {
+      const philoTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: philoContainer,
+          start: "top 90%", 
+          end: "bottom 10%",
+          scrub: 1,
+        }
+      });
+      
+      // Card Izquierda
+      philoTl.fromTo('.philo-card-left',
+        { opacity: 0, x: -200, y: 200, z: -600, rotationY: -50, rotationZ: -10 },
+        { opacity: 0.8, x: 0, y: 0, z: 0, rotationY: 25, rotationX: 10, rotationZ: -5, duration: 0.4, ease: "power2.out" },
+        0
+      );
+      philoTl.to('.philo-card-left', { opacity: 0.8, duration: 0.2 }, 0.4);
+      philoTl.to('.philo-card-left',
+        { opacity: 0, y: -200, z: -400, rotationX: -10, duration: 0.4, ease: "power2.in" },
+        0.6
+      );
+
+      // Card Derecha
+      philoTl.fromTo('.philo-card-right',
+        { opacity: 0, x: 200, y: 200, z: -600, rotationY: 50, rotationZ: 10 },
+        { opacity: 0.8, x: 0, y: 0, z: 0, rotationY: -25, rotationX: 10, rotationZ: 5, duration: 0.4, ease: "power2.out" },
+        0
+      );
+      philoTl.to('.philo-card-right', { opacity: 0.8, duration: 0.2 }, 0.4);
+      philoTl.to('.philo-card-right',
+        { opacity: 0, y: -200, z: -400, rotationX: -10, duration: 0.4, ease: "power2.in" },
+        0.6
+      );
+
+      // Texto Central
+      philoTl.fromTo('.philo-text',
+        { opacity: 0, y: 150, z: -400, scale: 0.8 },
+        { opacity: 1, y: 0, z: 0, scale: 1, duration: 0.4, ease: "power2.out" },
+        0
+      );
+      philoTl.to('.philo-text', { opacity: 1, duration: 0.2 }, 0.4);
+      philoTl.to('.philo-text',
+        { opacity: 0, y: -150, z: 200, scale: 1.1, duration: 0.4, ease: "power2.in" },
+        0.6
+      );
+    }
+
   }, { scope: container });
 
   return (
@@ -74,17 +123,33 @@ export default function Home() {
       <CanvasSequence />
 
       {/* --- FILOSOFÍA / MANIFIESTO (Glassmorfismo Parallax) --- */}
-      <section className="relative w-full z-20 -mt-[100vh]">
-        <div className="w-full bg-[#0a0a0c]/60 backdrop-blur-2xl border-t border-[#ff0163]/20 rounded-t-[3rem] px-6 py-32 md:py-48 text-center shadow-[0_-20px_50px_rgba(0,0,0,0.5)] min-h-screen flex flex-col justify-center">
-          <div className="max-w-5xl mx-auto reveal-up">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] mb-8">
+      {/* El margen negativo -mt-[100vh] hace que se superponga al final del pin de CanvasSequence */}
+      <section className="relative w-full z-20 -mt-[100vh] philo-container overflow-hidden" style={{ perspective: "2000px" }}>
+        <div className="w-full bg-[#0a0a0c]/60 backdrop-blur-2xl border-t border-[#ff0163]/20 rounded-t-[3rem] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] min-h-screen relative flex items-center justify-center py-32" style={{ transformStyle: "preserve-3d" }}>
+          
+          {/* Card Flotante Izquierda */}
+          <div className="philo-card-left absolute left-4 lg:left-[10%] w-[250px] md:w-[350px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/5 pointer-events-none hidden md:block">
+            <img src="/multimedia/model1.jpg" alt="DonnaModa Filosofía" className="w-full h-full object-cover object-top opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f11] via-transparent to-transparent" />
+          </div>
+
+          {/* Texto Central */}
+          <div className="philo-text relative z-10 max-w-5xl mx-auto text-center px-6 pointer-events-auto drop-shadow-2xl">
+            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] mb-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
               La moda no es lo que vistes.<br/>
               <span className="italic text-[#9b3263]">Es cómo habitas el espacio.</span>
             </h2>
-            <p className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto">
+            <p className="text-zinc-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
               En DonnaModa, fusionamos la precisión arquitectónica con la fluidez orgánica. Cada pieza es diseñada no solo para lucir impecable, sino para responder a la cadencia natural de tu cuerpo.
             </p>
           </div>
+
+          {/* Card Flotante Derecha */}
+          <div className="philo-card-right absolute right-4 lg:right-[10%] w-[250px] md:w-[350px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/5 pointer-events-none hidden md:block">
+            <img src="/multimedia/model2.jpg" alt="DonnaModa Artesanía" className="w-full h-full object-cover object-center opacity-60" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f11] via-transparent to-transparent" />
+          </div>
+
         </div>
       </section>
 
