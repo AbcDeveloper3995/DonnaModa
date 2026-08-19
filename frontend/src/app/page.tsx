@@ -55,6 +55,27 @@ export default function Home() {
       );
     });
 
+    const slidesRight = gsap.utils.toArray('.slide-right');
+    slidesRight.forEach((el: any) => {
+      gsap.fromTo(el,
+        { opacity: 0, x: -100 },
+        {
+          opacity: 1, x: 0,
+          duration: 1,
+          ease: "expo.out",
+          scrollTrigger: { trigger: el, start: "top 85%" }
+        }
+      );
+    });
+
+    const parallaxImgs = gsap.utils.toArray('.parallax-img');
+    parallaxImgs.forEach((img: any) => {
+      gsap.fromTo(img,
+        { y: -80 },
+        { y: 80, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }
+      );
+    });
+
     // === EFECTOS 3D PARA LA SECCIÓN DE FILOSOFÍA ===
     const philoContainer = document.querySelector('.philo-container');
     if (philoContainer) {
@@ -217,65 +238,99 @@ export default function Home() {
       </section>
 
       {/* --- TESTIMONIOS --- */}
-      <section className="relative w-full max-w-6xl mx-auto px-6 py-32 z-10 reveal-up">
-        <h2 className="text-5xl font-serif text-white mb-16 text-center">Voces de la Crítica</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
-          {[
-            { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito.", author: "Vogue México" },
-            { quote: "DonnaModa logra lo imposible: estructurar el aire. Sus prendas tienen caída perfecta.", author: "L'Officiel" },
-            { quote: "Minimalismo que no se siente frío. Es lujo táctil, pensado para moverse.", author: "Elena R." }
-          ].map((t, i) => (
-            <div key={i} className="p-10 bg-[#18181b] shadow-xl rounded-[2rem] border border-white/5 hover:border-[#9b3263]/50 transition-colors">
-               <div className="text-4xl text-[#ff0163] font-serif mb-6">"</div>
-               <p className="text-zinc-300 text-xl font-light leading-relaxed mb-8">{t.quote}</p>
-               <p className="text-xs tracking-widest uppercase text-zinc-500">{t.author}</p>
+      <section className="relative w-full py-32 z-10 overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <img src="/multimedia/4.jpg" className="parallax-img w-full h-[130%] object-cover object-center -mt-[15%]" alt="Fondo Editorial" />
+          <div className="absolute inset-0 bg-[#050505]/85 backdrop-blur-[2px]" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-6 z-10">
+          <h2 className="text-5xl font-serif text-white mb-16 text-center slide-right">Voces de la Crítica</h2>
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
+            
+            <div className="md:col-span-1 hidden md:block slide-right">
+              <img src="/multimedia/2.jpg" alt="Editorial Look" className="w-full aspect-[2/3] object-cover rounded-2xl shadow-2xl border border-white/10" />
             </div>
-          ))}
+
+            <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8">
+              {[
+                { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito.", author: "Vogue México" },
+                { quote: "DonnaModa logra lo imposible: estructurar el aire. Sus prendas tienen caída perfecta.", author: "L'Officiel" },
+                { quote: "Minimalismo que no se siente frío. Es lujo táctil, pensado para moverse.", author: "Elena R." },
+                { quote: "La maestría de un diseño que respeta el cuerpo sin perder fuerza arquitectónica.", author: "Harper's Bazaar" }
+              ].map((t, i) => (
+                <div key={i} className="p-10 bg-[#18181b]/60 backdrop-blur-xl shadow-2xl rounded-[2rem] border border-white/10 hover:border-[#ff0163]/50 transition-colors slide-right">
+                   <div className="text-4xl text-[#ff0163] font-serif mb-6">"</div>
+                   <p className="text-zinc-300 text-xl font-light leading-relaxed mb-8 drop-shadow-md">{t.quote}</p>
+                   <p className="text-xs tracking-widest uppercase text-zinc-400">{t.author}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="md:col-span-1 hidden md:block slide-right">
+              <img src="/multimedia/3.jpg" alt="Editorial Detail" className="w-full aspect-[2/3] object-cover rounded-2xl shadow-2xl border border-white/10" />
+            </div>
+
+          </div>
         </div>
       </section>
 
       {/* --- FAQ --- */}
-      <section className="relative w-full max-w-4xl mx-auto px-6 py-32 z-10 reveal-up">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">Dudas Frecuentes</h2>
-        </div>
-        
-        <div className="space-y-4">
-          {[
-            { q: "¿Tienen envíos internacionales?", a: "Sí, realizamos envíos a todo el mundo a través de paquetería express. Los costos se calculan al finalizar la compra." },
-            { q: "¿Puedo solicitar ajustes a la medida?", a: "Ofrecemos un servicio de tailoring exclusivo en nuestra boutique de Puerto Morelos. Para compras online, consulta nuestra guía de tallas." },
-            { q: "¿Cuál es la política de devoluciones?", a: "Aceptamos devoluciones dentro de los primeros 14 días tras recibir tu pedido, en su estado original y con etiquetas." }
-          ].map((faq, i) => (
-            <div key={i} className="border-b border-white/10">
-              <button 
-                onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                className="w-full flex justify-between items-center py-6 text-left focus:outline-none group"
-              >
-                <span className="text-lg md:text-xl text-zinc-200 font-light group-hover:text-white transition-colors">{faq.q}</span>
-                <ChevronDown className={`w-5 h-5 text-[#ff0163] transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
-              </button>
-              <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openFaq === i ? 'max-h-40 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
-                <p className="text-zinc-400 font-light pr-12">{faq.a}</p>
-              </div>
+      <section className="relative w-full max-w-7xl mx-auto px-6 py-32 z-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="slide-right order-2 md:order-1">
+            <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] border border-white/10">
+              <img src="/multimedia/1.jpg" alt="DonnaModa Detalles" className="parallax-img w-full h-[120%] object-cover object-center -mt-[10%]" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#9b3263]/30 to-transparent mix-blend-overlay" />
             </div>
-          ))}
+          </div>
+          
+          <div className="order-1 md:order-2">
+            <div className="mb-12 slide-right">
+              <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">Dudas Frecuentes</h2>
+              <p className="text-zinc-400 font-light text-lg">Atención meticulosa incluso antes de que la prenda llegue a ti.</p>
+            </div>
+            
+            <div className="space-y-4 slide-right">
+              {[
+                { q: "¿Tienen envíos internacionales?", a: "Sí, realizamos envíos a todo el mundo a través de paquetería express. Los costos se calculan al finalizar la compra." },
+                { q: "¿Puedo solicitar ajustes a la medida?", a: "Ofrecemos un servicio de tailoring exclusivo en nuestra boutique de Puerto Morelos. Para compras online, consulta nuestra guía de tallas." },
+                { q: "¿Cuál es la política de devoluciones?", a: "Aceptamos devoluciones dentro de los primeros 14 días tras recibir tu pedido, en su estado original y con etiquetas." }
+              ].map((faq, i) => (
+                <div key={i} className="border-b border-white/10">
+                  <button 
+                    onClick={() => setOpenFaq(openFaq === i ? null : i)}
+                    className="w-full flex justify-between items-center py-6 text-left focus:outline-none group"
+                  >
+                    <span className="text-lg md:text-xl text-zinc-200 font-light group-hover:text-white transition-colors">{faq.q}</span>
+                    <ChevronDown className={`w-5 h-5 text-[#ff0163] transition-transform duration-300 ${openFaq === i ? 'rotate-180' : ''}`} />
+                  </button>
+                  <div className={`overflow-hidden transition-all duration-500 ease-in-out ${openFaq === i ? 'max-h-40 opacity-100 mb-6' : 'max-h-0 opacity-0'}`}>
+                    <p className="text-zinc-400 font-light pr-12">{faq.a}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
       {/* --- CTA / NEWSLETTER --- */}
-      <section className="relative w-full px-6 py-32 md:py-48 z-10 overflow-hidden reveal-up">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#9b3263]/10 to-transparent pointer-events-none" />
-        <div className="relative max-w-3xl mx-auto text-center z-10">
-          <h2 className="text-5xl md:text-7xl font-serif text-white mb-6">Únete al Círculo</h2>
-          <p className="text-zinc-400 text-lg mb-12 font-light">
+      <section className="relative w-full px-6 py-32 md:py-48 z-10 overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <img src="/multimedia/5.jpg" className="parallax-img w-full h-[130%] object-cover object-top -mt-[15%]" alt="Colección Exclusiva" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0c]/95 via-[#0a0a0c]/80 to-[#9b3263]/50" />
+        </div>
+        <div className="relative max-w-3xl mx-auto text-center z-10 slide-right">
+          <h2 className="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-lg">Únete al Círculo</h2>
+          <p className="text-zinc-200 text-lg md:text-xl mb-12 font-light drop-shadow-md">
             Recibe acceso anticipado a nuevas colecciones, piezas de edición limitada y eventos privados en nuestra boutique.
           </p>
           <form className="flex flex-col md:flex-row gap-4 justify-center max-w-xl mx-auto" onSubmit={(e) => e.preventDefault()}>
             <input 
               type="email" placeholder="Tu correo electrónico" required
-              className="flex-1 bg-white/5 backdrop-blur-md border border-white/10 rounded-full px-6 py-4 text-white placeholder-zinc-500 focus:outline-none focus:border-[#ff0163]/50 transition-colors"
+              className="flex-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-4 text-white placeholder-zinc-300 focus:outline-none focus:border-[#ff0163]/80 transition-colors shadow-2xl"
             />
-            <button type="submit" className="bg-[#ff0163] text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold hover:bg-[#9b3263] transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,1,99,0.3)]">
+            <button type="submit" className="bg-[#ff0163] text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold hover:bg-[#9b3263] transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,1,99,0.4)]">
               Suscribirse <ArrowRight className="w-4 h-4" />
             </button>
           </form>
