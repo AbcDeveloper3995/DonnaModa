@@ -27,11 +27,11 @@ export default function Home() {
         }
       });
       tl.fromTo(card,
-        { opacity: 0, y: 200, z: -400, rotationX: 25, scale: 0.85 },
-        { opacity: 1, y: 0, z: 0, rotationX: 0, scale: 1, ease: "power2.out", duration: 0.4 }
+        { opacity: 0, rotationX: 15, scale: 0.9 },
+        { opacity: 1, rotationX: 0, scale: 1, ease: "power2.out", duration: 0.4 }
       );
       tl.to(card, { opacity: 1, duration: 0.3 });
-      tl.to(card, { opacity: 0.1, y: -100, z: -200, rotationX: -15, scale: 0.9, duration: 0.3 });
+      tl.to(card, { opacity: 0.1, rotationX: -10, scale: 0.95, duration: 0.3 });
     });
 
     const images = gsap.utils.toArray('.bento-img');
@@ -75,6 +75,33 @@ export default function Home() {
         { y: 80, ease: "none", scrollTrigger: { trigger: img.parentElement, start: "top bottom", end: "bottom top", scrub: true } }
       );
     });
+
+    const walkRightContents = gsap.utils.toArray('.walk-right-content');
+    walkRightContents.forEach((el: any) => {
+      gsap.fromTo(el,
+        { opacity: 0, x: -100 },
+        { 
+          opacity: 1, x: 0, 
+          ease: "power2.out", 
+          scrollTrigger: { trigger: el, start: "top 85%", end: "center center", scrub: 1 } 
+        }
+      );
+    });
+
+    // === STICKY STACK EFFECT ===
+    const updateSticky = () => {
+      const stackSections = gsap.utils.toArray('.stack-section');
+      stackSections.forEach((sec: any) => {
+        sec.style.position = 'sticky';
+        if (sec.offsetHeight > window.innerHeight) {
+          sec.style.top = `calc(100vh - ${sec.offsetHeight}px)`;
+        } else {
+          sec.style.top = '0px';
+        }
+      });
+    };
+    updateSticky();
+    window.addEventListener('resize', updateSticky);
 
     // === EFECTOS 3D PARA LA SECCIÓN DE FILOSOFÍA ===
     const philoContainer = document.querySelector('.philo-container');
@@ -125,10 +152,13 @@ export default function Home() {
       );
     }
 
+    return () => {
+      window.removeEventListener('resize', updateSticky);
+    };
   }, { scope: container });
 
   return (
-    <main ref={container} className="bg-[#0f0f11] min-h-screen text-zinc-200 font-sans selection:bg-[#ff0163] selection:text-white overflow-x-hidden">
+    <main ref={container} className="bg-[#0f0f11] min-h-screen text-zinc-200 font-sans selection:bg-[#ff0163] selection:text-white">
       
       {/* Navegación */}
       <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 pointer-events-none mix-blend-difference text-white">
@@ -146,7 +176,7 @@ export default function Home() {
 
       {/* --- FILOSOFÍA / MANIFIESTO (Glassmorfismo Parallax) --- */}
       {/* El margen negativo -mt-[100vh] hace que se superponga al final del pin de CanvasSequence */}
-      <section className="relative w-full z-20 -mt-[100vh] philo-container overflow-hidden" style={{ perspective: "2000px" }}>
+      <section className="relative w-full z-20 -mt-[100vh] philo-container overflow-hidden stack-section" style={{ perspective: "2000px" }}>
         <div className="w-full bg-[#0a0a0c]/60 backdrop-blur-2xl border-t border-[#ff0163]/20 rounded-t-[3rem] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] min-h-screen relative flex items-center justify-center py-32" style={{ transformStyle: "preserve-3d" }}>
           
           {/* Card Flotante Izquierda */}
@@ -176,8 +206,9 @@ export default function Home() {
       </section>
 
       {/* --- BENTO GRID --- */}
-      <section className="relative w-full max-w-[1600px] mx-auto px-6 md:px-12 py-32 z-10" style={{ transformStyle: "preserve-3d", perspective: "1200px" }}>
+      <section className="relative w-full z-20 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#0f0f11] py-32 px-6 md:px-12 stack-section" style={{ transformStyle: "preserve-3d", perspective: "1200px" }}>
         <ParticlesBackground />
+        <div className="max-w-[1600px] mx-auto w-full relative z-10">
         
         <div className="mb-32 text-center max-w-4xl mx-auto bento-card origin-center relative z-10">
           <h2 className="text-6xl md:text-8xl font-serif text-white mb-8">La Forma del <span className="italic text-[#ff0163]">Movimiento</span></h2>
@@ -235,49 +266,40 @@ export default function Home() {
           </div>
 
         </div>
+        </div>
       </section>
 
       {/* --- TESTIMONIOS --- */}
-      <section className="relative w-full py-32 z-10 overflow-hidden">
+      <section className="relative w-full py-32 z-30 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] stack-section">
         <div className="absolute inset-0 w-full h-full">
           <img src="/multimedia/4.jpg" className="parallax-img w-full h-[130%] object-cover object-center -mt-[15%]" alt="Fondo Editorial" />
           <div className="absolute inset-0 bg-[#050505]/85 backdrop-blur-[2px]" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-6 z-10">
-          <h2 className="text-5xl font-serif text-white mb-16 text-center slide-right">Voces de la Crítica</h2>
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
-            
-            <div className="md:col-span-1 hidden md:block slide-right">
-              <img src="/multimedia/2.jpg" alt="Editorial Look" className="w-full aspect-[2/3] object-cover rounded-2xl shadow-2xl border border-white/10" />
-            </div>
-
-            <div className="md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-8">
-              {[
-                { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito.", author: "Vogue México" },
-                { quote: "DonnaModa logra lo imposible: estructurar el aire. Sus prendas tienen caída perfecta.", author: "L'Officiel" },
-                { quote: "Minimalismo que no se siente frío. Es lujo táctil, pensado para moverse.", author: "Elena R." },
-                { quote: "La maestría de un diseño que respeta el cuerpo sin perder fuerza arquitectónica.", author: "Harper's Bazaar" }
-              ].map((t, i) => (
-                <div key={i} className="p-10 bg-[#18181b]/60 backdrop-blur-xl shadow-2xl rounded-[2rem] border border-white/10 hover:border-[#ff0163]/50 transition-colors slide-right">
-                   <div className="text-4xl text-[#ff0163] font-serif mb-6">"</div>
-                   <p className="text-zinc-300 text-xl font-light leading-relaxed mb-8 drop-shadow-md">{t.quote}</p>
-                   <p className="text-xs tracking-widest uppercase text-zinc-400">{t.author}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="md:col-span-1 hidden md:block slide-right">
-              <img src="/multimedia/3.jpg" alt="Editorial Detail" className="w-full aspect-[2/3] object-cover rounded-2xl shadow-2xl border border-white/10" />
-            </div>
-
+        <div className="relative max-w-5xl mx-auto px-6 z-10">
+          <h2 className="text-5xl font-serif text-white mb-16 text-center slide-right">Testimonios</h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito.", author: "Vogue México" },
+              { quote: "DonnaModa logra lo imposible: estructurar el aire. Sus prendas tienen caída perfecta.", author: "L'Officiel" },
+              { quote: "Minimalismo que no se siente frío. Es lujo táctil, pensado para moverse.", author: "Elena R." },
+              { quote: "La maestría de un diseño que respeta el cuerpo sin perder fuerza arquitectónica.", author: "Harper's Bazaar" }
+            ].map((t, i) => (
+              <div key={i} className="p-10 bg-[#18181b]/60 backdrop-blur-xl shadow-2xl rounded-[2rem] border border-white/10 hover:border-[#ff0163]/50 transition-colors slide-right">
+                 <div className="text-4xl text-[#ff0163] font-serif mb-6">"</div>
+                 <p className="text-zinc-300 text-xl font-light leading-relaxed mb-8 drop-shadow-md">{t.quote}</p>
+                 <p className="text-xs tracking-widest uppercase text-zinc-400">{t.author}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* --- FAQ --- */}
-      <section className="relative w-full max-w-7xl mx-auto px-6 py-32 z-10">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div className="slide-right order-2 md:order-1">
+      <section className="relative w-full py-32 z-40 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#0f0f11] stack-section">
+        <div className="max-w-7xl mx-auto px-6 walk-right-content">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+          <div className="order-2 md:order-1">
             <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] border border-white/10">
               <img src="/multimedia/1.jpg" alt="DonnaModa Detalles" className="parallax-img w-full h-[120%] object-cover object-center -mt-[10%]" />
               <div className="absolute inset-0 bg-gradient-to-tr from-[#9b3263]/30 to-transparent mix-blend-overlay" />
@@ -285,12 +307,12 @@ export default function Home() {
           </div>
           
           <div className="order-1 md:order-2">
-            <div className="mb-12 slide-right">
+            <div className="mb-12">
               <h2 className="text-4xl md:text-5xl font-serif text-white mb-4">Dudas Frecuentes</h2>
               <p className="text-zinc-400 font-light text-lg">Atención meticulosa incluso antes de que la prenda llegue a ti.</p>
             </div>
             
-            <div className="space-y-4 slide-right">
+            <div className="space-y-4">
               {[
                 { q: "¿Tienen envíos internacionales?", a: "Sí, realizamos envíos a todo el mundo a través de paquetería express. Los costos se calculan al finalizar la compra." },
                 { q: "¿Puedo solicitar ajustes a la medida?", a: "Ofrecemos un servicio de tailoring exclusivo en nuestra boutique de Puerto Morelos. Para compras online, consulta nuestra guía de tallas." },
@@ -312,77 +334,48 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* --- CTA / NEWSLETTER --- */}
-      <section className="relative w-full px-6 py-32 md:py-48 z-10 overflow-hidden">
-        <div className="absolute inset-0 w-full h-full">
-          <img src="/multimedia/5.jpg" className="parallax-img w-full h-[130%] object-cover object-top -mt-[15%]" alt="Colección Exclusiva" />
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0a0a0c]/95 via-[#0a0a0c]/80 to-[#9b3263]/50" />
-        </div>
-        <div className="relative max-w-3xl mx-auto text-center z-10 slide-right">
-          <h2 className="text-5xl md:text-7xl font-serif text-white mb-6 drop-shadow-lg">Únete al Círculo</h2>
-          <p className="text-zinc-200 text-lg md:text-xl mb-12 font-light drop-shadow-md">
-            Recibe acceso anticipado a nuevas colecciones, piezas de edición limitada y eventos privados en nuestra boutique.
-          </p>
-          <form className="flex flex-col md:flex-row gap-4 justify-center max-w-xl mx-auto" onSubmit={(e) => e.preventDefault()}>
-            <input 
-              type="email" placeholder="Tu correo electrónico" required
-              className="flex-1 bg-white/10 backdrop-blur-md border border-white/20 rounded-full px-6 py-4 text-white placeholder-zinc-300 focus:outline-none focus:border-[#ff0163]/80 transition-colors shadow-2xl"
-            />
-            <button type="submit" className="bg-[#ff0163] text-white px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold hover:bg-[#9b3263] transition-colors flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,1,99,0.4)]">
-              Suscribirse <ArrowRight className="w-4 h-4" />
-            </button>
-          </form>
         </div>
       </section>
 
-      {/* --- BOUTIQUE LOCATION (Map) --- */}
-      <section className="relative w-full h-[70vh] bg-[#050505] overflow-hidden reveal-up">
-        <div className="absolute inset-0 w-full h-full opacity-40">
-           {/* Static stylized map background using a dark textured image or generic map embed if needed, here we use a gradient mesh to simulate depth */}
-           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-[#9b3263]/20 via-[#050505] to-[#050505]"></div>
-           <img src="/multimedia/model1.jpg" className="w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Texture" />
-        </div>
-        
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-6">
-          <div className="bg-white/5 backdrop-blur-2xl border border-white/10 p-10 md:p-16 rounded-[2rem] text-center shadow-2xl pointer-events-auto max-w-lg w-full">
-            <MapPin className="w-8 h-8 text-[#ff0163] mx-auto mb-6" />
-            <h3 className="font-serif text-4xl text-white mb-4">Nuestra Boutique</h3>
-            <p className="text-zinc-400 font-light mb-8 text-lg">
-              Te esperamos para vivir la experiencia DonnaModa en físico.<br/>
-              <span className="text-zinc-500 text-base">Puerto Morelos, Quintana Roo, México</span>
+      {/* --- BOUTIQUE LOCATION & FOOTER --- */}
+      <section className="relative w-full pt-32 z-50 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] reveal-up stack-section">
+        <ParticlesBackground />
+        <div className="max-w-7xl mx-auto px-6 relative z-10 flex flex-col md:flex-row items-center gap-16">
+          <div className="flex-1">
+            <MapPin className="w-8 h-8 text-[#ff0163] mb-6" />
+            <h3 className="font-serif text-4xl md:text-5xl text-white mb-6">Nuestra Boutique</h3>
+            <p className="text-zinc-400 font-light text-lg mb-8 max-w-md">
+              Te esperamos para vivir la experiencia DonnaModa en físico. Un espacio diseñado para la apreciación del arte y la moda.
             </p>
-            <a 
-              href="https://maps.app.goo.gl/gk9v5uC8bGRzBgyv5" 
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full text-sm uppercase tracking-widest font-bold hover:bg-[#ff0163] hover:text-white transition-all shadow-[0_0_15px_rgba(255,255,255,0.1)] group"
-            >
-              Abrir en Google Maps <ExternalLink className="w-4 h-4 group-hover:scale-110 transition-transform" />
-            </a>
+            <div className="border-l-2 border-[#ff0163] pl-6">
+              <span className="text-white text-xl md:text-2xl font-serif tracking-wide block mb-1">Puerto Morelos</span>
+              <span className="text-zinc-500 text-sm tracking-widest uppercase block">Quintana Roo, México</span>
+            </div>
+          </div>
+          <div className="flex-1 w-full max-w-md md:max-w-none mx-auto">
+            <div className="w-full aspect-square bg-white/5 rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 relative group">
+              <iframe 
+                src="https://www.google.com/maps?q=20.855691,-86.900619&output=embed" 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0, filter: 'invert(90%) hue-rotate(180deg) grayscale(80%) contrast(120%)' }} 
+                allowFullScreen={false} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                className="opacity-80"
+              />
+            </div>
           </div>
         </div>
-      </section>
 
-      {/* --- FOOTER EXPANDIDO --- */}
-      <footer className="w-full bg-[#050505] pt-24 pb-12 px-6 md:px-12 relative z-20 reveal-up">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+        {/* --- FOOTER COMPACTO --- */}
+        <footer className="relative w-full border-t border-white/10 pt-16 pb-8 px-6 md:px-12 mt-24">
+          <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 relative z-10">
           <div className="md:col-span-1">
             <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-10 w-auto brightness-0 invert opacity-90 mb-6" />
             <p className="text-zinc-500 font-light text-sm max-w-xs">
               Elegancia atemporal y precisión arquitectónica para la mujer contemporánea.
             </p>
-          </div>
-          
-          <div>
-            <h4 className="text-xs tracking-widest uppercase text-white mb-6 font-semibold">Explorar</h4>
-            <ul className="space-y-4 text-zinc-500 text-sm font-light">
-              <li><a href="#" className="hover:text-[#ff0163] transition-colors">V6 Collection</a></li>
-              <li><a href="#" className="hover:text-[#ff0163] transition-colors">Essentials</a></li>
-              <li><a href="#" className="hover:text-[#ff0163] transition-colors">Accesorios</a></li>
-              <li><a href="#" className="hover:text-[#ff0163] transition-colors">Lookbook</a></li>
-            </ul>
           </div>
           
           <div>
@@ -410,24 +403,28 @@ export default function Home() {
           </div>
         </div>
         
-        <div className="max-w-[1400px] mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 uppercase tracking-widest">
+        <div className="max-w-[1400px] mx-auto pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-zinc-600 uppercase tracking-widest relative z-10">
           <p>&copy; {new Date().getFullYear()} DonnaModa. Todos los derechos reservados.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-[#ff0163] transition-colors">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          <div className="flex gap-6 items-center">
+            <a href="#" className="text-zinc-500 hover:text-[#ff0163] transition-colors" aria-label="Facebook">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.469h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.469h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </a>
-            <a href="#" className="hover:text-[#ff0163] transition-colors">
-              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
+            <a href="#" className="text-zinc-500 hover:text-[#ff0163] transition-colors" aria-label="Instagram">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+              </svg>
+            </a>
+            <a href="#" className="text-zinc-500 hover:text-[#ff0163] transition-colors" aria-label="TikTok">
+              <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
+                <path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.24-1.76.2-3.54 1.25-4.99C4.1 10.51 5.91 9.4 7.85 9.29c.14-.01.27-.01.41-.01v4.06c-.84.09-1.69.41-2.31 1-.9.84-1.31 2.1-1 3.3.36 1.4 1.63 2.5 3.08 2.72 1.34.2 2.74-.25 3.63-1.25.75-.85 1.15-2.01 1.14-3.17-.03-5.26-.01-10.51-.02-15.77l-.25-.15z"/>
               </svg>
             </a>
           </div>
         </div>
       </footer>
+      </section>
 
     </main>
   );
