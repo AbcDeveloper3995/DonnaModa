@@ -122,7 +122,7 @@ export default function CanvasSequence() {
       
       {/* Título Principal y Logo */}
       <div ref={textOverlayRef} className="absolute inset-0 flex flex-col items-center justify-center z-10 origin-center pointer-events-none drop-shadow-2xl">
-         <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa" className="h-24 md:h-40 w-auto mb-4 object-contain brightness-0 invert" />
+         <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa" className="h-24 md:h-40 w-auto mb-4 object-contain drop-shadow-lg" />
          <p className="text-[#ff0163] mt-6 tracking-[0.3em] uppercase text-sm font-sans animate-pulse font-bold">Desliza para descubrir</p>
       </div>
 
