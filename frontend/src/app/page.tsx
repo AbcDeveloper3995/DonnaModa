@@ -2,7 +2,7 @@
 import CanvasSequence from "@/components/CanvasSequence";
 import ParticlesBackground from "@/components/ParticlesBackground";
 import HangingCarouselSection from "@/components/HangingCarouselSection";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { ChevronDown, ArrowRight, MapPin, Mail, ExternalLink } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -15,6 +15,20 @@ if (typeof window !== "undefined") {
 export default function Home() {
   const container = useRef<HTMLDivElement>(null);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [navSolid, setNavSolid] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const philoSection = document.querySelector('.philo-container');
+      if (philoSection) {
+        const top = philoSection.getBoundingClientRect().top;
+        setNavSolid(top <= 100);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   
   useGSAP(() => {
     const reveals = gsap.utils.toArray('.reveal-up');
@@ -125,15 +139,21 @@ export default function Home() {
   return (
     <main ref={container} className="bg-[#0f0f11] min-h-screen text-zinc-200 font-sans selection:bg-[#ff0163] selection:text-white">
       
-      {/* Navegación protegida con fondo oscuro sólido y desenfoque */}
-      <nav className="fixed top-0 left-0 w-full py-4 px-6 md:px-8 flex justify-between items-center z-50 bg-[#0a0a0c]/85 backdrop-blur-xl border-b border-white/5 shadow-2xl">
+      {/* Navegación protegida dinámica */}
+      <nav className={`fixed top-0 left-0 w-full flex justify-between items-center z-50 transition-all duration-300 ${
+        navSolid 
+          ? "py-4 px-6 md:px-8 bg-[#0a0a0c]/90 backdrop-blur-xl border-b border-white/5 shadow-2xl"
+          : "p-6 md:p-8 pointer-events-none"
+      }`}>
         <div 
-          className="cursor-pointer"
+          className="pointer-events-auto cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-6 md:h-8 w-auto drop-shadow-md" />
         </div>
-        <ul className="flex space-x-6 md:space-x-8 text-xs md:text-sm tracking-widest uppercase text-white">
+        <ul className={`flex space-x-6 md:space-x-8 text-xs md:text-sm tracking-widest uppercase pointer-events-auto text-white ${
+          navSolid ? "" : "mix-blend-difference"
+        }`}>
           <li><button onClick={() => document.getElementById('carousel')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#ff0163] transition-colors cursor-pointer">Colección</button></li>
           <li><button className="hover:text-[#ff0163] transition-colors cursor-pointer">Boutique</button></li>
         </ul>
