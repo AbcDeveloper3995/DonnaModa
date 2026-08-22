@@ -1,14 +1,8 @@
 "use client";
-import dynamic from "next/dynamic";
 import Image from "next/image";
+import CanvasSequence from "@/components/CanvasSequence";
+import ParticlesBackground from "@/components/ParticlesBackground";
 import HangingCarouselSection from "@/components/HangingCarouselSection";
-
-const CanvasSequence = dynamic(() => import("@/components/CanvasSequence"), {
-  ssr: false, // Canvas uses window
-});
-const ParticlesBackground = dynamic(() => import("@/components/ParticlesBackground"), {
-  ssr: false, // Particles use window
-});
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown, ArrowRight, MapPin, Mail, ExternalLink } from "lucide-react";
 import gsap from "gsap";
