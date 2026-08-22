@@ -8,10 +8,10 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 // Añadimos offset vertical para asimetría
 const CLOTHING_ITEMS = [
   { id: "item-1", title: "Colección V6", description: "Fluidez Natural", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
-  { id: "item-2", title: "DonnaModa", description: "Estructura Pura", offset: "40px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
-  { id: "item-3", title: "Boutique", description: "Elegancia Atemporal", offset: "20px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
-  { id: "item-4", title: "Artesanía", description: "Corte Preciso", offset: "60px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
-  { id: "item-5", title: "Colección V6", description: "Movimiento", offset: "10px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
+  { id: "item-2", title: "DonnaModa", description: "Estructura Pura", offset: "0px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
+  { id: "item-3", title: "Boutique", description: "Elegancia Atemporal", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
+  { id: "item-4", title: "Artesanía", description: "Corte Preciso", offset: "0px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
+  { id: "item-5", title: "Colección V6", description: "Movimiento", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
 ];
 
 function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackIndex: number, setActiveItem: (id: string) => void }) {
