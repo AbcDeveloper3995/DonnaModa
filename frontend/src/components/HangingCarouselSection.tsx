@@ -75,7 +75,7 @@ export default function HangingCarouselSection() {
                   {/* Card de la prenda */}
                   <motion.div
                     layoutId={`card-${trackIndex === 2 ? `${item.id}-dup` : item.id}`}
-                    className="w-[260px] md:w-[320px] aspect-[3/4] relative rounded-b-2xl rounded-t-sm overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover/card:shadow-[0_20px_50px_rgba(255,1,99,0.15)] border border-white/5 group-hover/card:border-[#ff0163]/30 transition-all duration-500 origin-top"
+                    className="w-[260px] md:w-[320px] aspect-[3/4] relative rounded-[2.5rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.6)] group-hover/card:shadow-[0_25px_60px_rgba(255,1,99,0.2)] border border-white/10 group-hover/card:border-[#ff0163]/40 transition-all duration-700 origin-top bg-zinc-900/50 backdrop-blur-sm"
                   >
                     <motion.div className="w-full h-full relative" layoutId={`card-image-container-${trackIndex === 2 ? `${item.id}-dup` : item.id}`}>
                       <img 
