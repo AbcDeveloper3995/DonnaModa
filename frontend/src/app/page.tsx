@@ -125,15 +125,15 @@ export default function Home() {
   return (
     <main ref={container} className="bg-[#0f0f11] min-h-screen text-zinc-200 font-sans selection:bg-[#ff0163] selection:text-white">
       
-      {/* Navegación */}
-      <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 pointer-events-none">
+      {/* Navegación protegida con gradiente y blur */}
+      <nav className="fixed top-0 left-0 w-full p-6 md:p-8 flex justify-between items-center z-50 pointer-events-none bg-gradient-to-b from-black/90 via-black/50 to-transparent pb-12 md:pb-16">
         <div 
           className="pointer-events-auto cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-6 md:h-8 w-auto drop-shadow-md" />
         </div>
-        <ul className="flex space-x-8 text-sm tracking-widest uppercase pointer-events-auto mix-blend-difference text-white">
+        <ul className="flex space-x-6 md:space-x-8 text-xs md:text-sm tracking-widest uppercase pointer-events-auto mix-blend-difference text-white">
           <li><button onClick={() => document.getElementById('carousel')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#ff0163] transition-colors cursor-pointer">Colección</button></li>
           <li><button className="hover:text-[#ff0163] transition-colors cursor-pointer">Boutique</button></li>
         </ul>
