@@ -186,25 +186,57 @@ export default function Home() {
       {/* --- TESTIMONIOS --- */}
       <section className="relative w-full py-32 z-30 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] stack-section">
         <div className="absolute inset-0 w-full h-full">
-          <img src="/multimedia/4.jpg" className="parallax-img w-full h-[130%] object-cover object-center -mt-[15%]" alt="Fondo Editorial" />
-          <div className="absolute inset-0 bg-[#050505]/85 backdrop-blur-[2px]" />
+          <img src="/multimedia/5.jpg" className="parallax-img w-full h-[130%] object-cover object-center -mt-[15%]" alt="Fondo Editorial" style={{ filter: 'grayscale(100%) brightness(0.8)' }} />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/90 backdrop-blur-[1px]" />
         </div>
-        <div className="relative max-w-5xl mx-auto px-6 z-10">
-          <h2 className="text-5xl font-serif text-white mb-16 text-center slide-right">Testimonios</h2>
+        <div className="relative max-w-6xl mx-auto px-6 z-10">
+          <div className="text-center mb-20 slide-right">
+            <h2 className="text-5xl md:text-6xl font-serif text-white mb-6">La Crítica</h2>
+            <p className="text-zinc-400 font-light text-xl max-w-xl mx-auto">Reconocimiento internacional a la maestría en la estructura y fluidez de cada diseño.</p>
+          </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {[
-              { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito.", author: "Vogue México" },
-              { quote: "DonnaModa logra lo imposible: estructurar el aire. Sus prendas tienen caída perfecta.", author: "L'Officiel" },
-              { quote: "Minimalismo que no se siente frío. Es lujo táctil, pensado para moverse.", author: "Elena R." },
-              { quote: "La maestría de un diseño que respeta el cuerpo sin perder fuerza arquitectónica.", author: "Harper's Bazaar" }
-            ].map((t, i) => (
-              <div key={i} className="p-10 bg-[#18181b]/60 backdrop-blur-xl shadow-2xl rounded-[2rem] border border-white/10 hover:border-[#ff0163]/50 transition-colors slide-right">
-                 <div className="text-4xl text-[#ff0163] font-serif mb-6">"</div>
-                 <p className="text-zinc-300 text-xl font-light leading-relaxed mb-8 drop-shadow-md">{t.quote}</p>
-                 <p className="text-xs tracking-widest uppercase text-zinc-400">{t.author}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+            {/* Columna Izquierda */}
+            <div className="flex flex-col gap-8 md:gap-12">
+              {[
+                { quote: "Una redefinición absoluta de la elegancia contemporánea. Cada corte tiene un propósito indiscutible.", author: "Vogue México" },
+                { quote: "Minimalismo que no se siente frío. Es un auténtico lujo táctil, meticulosamente pensado para moverse.", author: "Elle" }
+              ].map((t, i) => (
+                <div key={`left-${i}`} className="p-8 md:p-12 bg-zinc-900/60 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.6)] rounded-[2.5rem] border border-white/5 hover:border-[#ff0163]/40 transition-all duration-500 hover:-translate-y-2 slide-right">
+                   <div className="text-5xl md:text-6xl text-[#ff0163] font-serif mb-4 leading-none opacity-80">"</div>
+                   <p className="text-zinc-200 text-xl md:text-2xl font-light leading-relaxed mb-10 drop-shadow-md">
+                     {t.quote}
+                   </p>
+                   <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white font-serif text-xl shadow-inner">
+                       {t.author.charAt(0)}
+                     </div>
+                     <p className="text-sm tracking-widest uppercase text-white font-semibold">{t.author}</p>
+                   </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Columna Derecha (Escalonada) */}
+            <div className="flex flex-col gap-8 md:gap-12 md:mt-24">
+              {[
+                { quote: "DonnaModa logra lo que parece imposible: estructurar el aire. Sus prendas tienen una caída simplemente perfecta.", author: "L'Officiel" },
+                { quote: "La maestría de un diseño que respeta el cuerpo femenino sin perder ni un ápice de fuerza arquitectónica.", author: "Harper's Bazaar" }
+              ].map((t, i) => (
+                <div key={`right-${i}`} className="p-8 md:p-12 bg-zinc-900/60 backdrop-blur-2xl shadow-[0_15px_40px_rgba(0,0,0,0.6)] rounded-[2.5rem] border border-white/5 hover:border-[#ff0163]/40 transition-all duration-500 hover:-translate-y-2 slide-right">
+                   <div className="text-5xl md:text-6xl text-[#ff0163] font-serif mb-4 leading-none opacity-80">"</div>
+                   <p className="text-zinc-200 text-xl md:text-2xl font-light leading-relaxed mb-10 drop-shadow-md">
+                     {t.quote}
+                   </p>
+                   <div className="flex items-center gap-4">
+                     <div className="w-12 h-12 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white font-serif text-xl shadow-inner">
+                       {t.author.charAt(0)}
+                     </div>
+                     <p className="text-sm tracking-widest uppercase text-white font-semibold">{t.author}</p>
+                   </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
