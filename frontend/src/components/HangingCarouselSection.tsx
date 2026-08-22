@@ -63,7 +63,7 @@ export default function HangingCarouselSection() {
                 >
                   
                   {/* Gancho de Ropa SVG */}
-                  <div className="relative z-10 -mb-[2px] transition-transform duration-500 group-hover/card:-translate-y-2">
+                  <div className="relative z-10 -mb-[2px]">
                     <svg width="80" height="50" viewBox="0 0 80 50" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#ff0163] drop-shadow-[0_2px_5px_rgba(255,1,99,0.3)]">
                       {/* Hook */}
                       <path d="M 40,20 C 40,20 40,12 40,8 C 40,2 50,2 50,10 C 50,16 40,20 40,20" className="text-[#9b3263]" strokeWidth="3" />
@@ -75,7 +75,7 @@ export default function HangingCarouselSection() {
                   {/* Card de la prenda */}
                   <motion.div
                     layoutId={`card-${trackIndex === 2 ? `${item.id}-dup` : item.id}`}
-                    className="w-[260px] md:w-[320px] aspect-[3/4] relative rounded-b-2xl rounded-t-sm overflow-hidden shadow-2xl border border-white/10 group-hover/card:border-[#ff0163]/50 transition-all duration-500 origin-top"
+                    className="w-[260px] md:w-[320px] aspect-[3/4] relative rounded-b-2xl rounded-t-sm overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.5)] group-hover/card:shadow-[0_20px_50px_rgba(255,1,99,0.15)] border border-white/5 group-hover/card:border-[#ff0163]/30 transition-all duration-500 origin-top"
                   >
                     <motion.div className="w-full h-full relative" layoutId={`card-image-container-${trackIndex === 2 ? `${item.id}-dup` : item.id}`}>
                       <img 
@@ -118,10 +118,10 @@ export default function HangingCarouselSection() {
             />
 
             {/* Card Enfocada */}
-            <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-12 pointer-events-none">
+            <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8 pointer-events-none">
               <motion.div
                 layoutId={`card-${activeItem}`}
-                className="relative w-full max-w-5xl aspect-[9/16] md:aspect-video bg-[#0a0a0c] rounded-[2rem] overflow-hidden shadow-[0_0_100px_rgba(255,1,99,0.2)] border border-[#ff0163]/20 pointer-events-auto flex"
+                className="relative h-[90vh] md:h-[85vh] aspect-[9/16] md:aspect-[3/4] lg:aspect-[4/5] bg-[#0a0a0c] rounded-[2rem] overflow-hidden shadow-[0_0_100px_rgba(255,1,99,0.2)] border border-[#ff0163]/20 pointer-events-auto flex mx-auto"
                 style={{ borderRadius: "2rem" }}
               >
                 {/* Botón Cerrar */}
