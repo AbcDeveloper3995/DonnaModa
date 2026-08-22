@@ -52,11 +52,11 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
         <motion.div className="w-full h-full relative overflow-hidden" layoutId={`card-image-container-${uniqueId}`}>
           
           {/* Imagen de fondo con Parallax CSS (pan lento) */}
-          <div className="absolute inset-0 w-[120%] h-[120%] -left-[10%] -top-[10%] group-hover/card:scale-105 transition-transform duration-[2s] ease-out">
+          <div className="absolute inset-0 w-[110%] h-[110%] -left-[5%] top-0 group-hover/card:scale-105 transition-transform duration-[2s] ease-out">
             <img 
               src={item.image} 
               alt={item.title} 
-              className={`w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
+              className={`w-full h-full object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
             />
             {/* Video miniatura en hover */}
             <video 
@@ -64,7 +64,7 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
               muted 
               playsInline 
               loop
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+              className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
               src={item.video} 
             />
           </div>
