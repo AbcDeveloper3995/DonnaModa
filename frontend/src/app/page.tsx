@@ -102,17 +102,7 @@ export default function Home() {
         0.6
       );
 
-      // Card Derecha
-      philoTl.fromTo('.philo-card-right',
-        { opacity: 0, x: 200, y: 200, z: -600, rotationY: 50, rotationZ: 10 },
-        { opacity: 0.8, x: 0, y: 0, z: 0, rotationY: -25, rotationX: 10, rotationZ: 5, duration: 0.4, ease: "power2.out" },
-        0
-      );
-      philoTl.to('.philo-card-right', { opacity: 0.8, duration: 0.2 }, 0.4);
-      philoTl.to('.philo-card-right',
-        { opacity: 0, y: -200, z: -400, rotationX: -10, duration: 0.4, ease: "power2.in" },
-        0.6
-      );
+
 
       // Texto Central
       philoTl.fromTo('.philo-text',
@@ -164,21 +154,44 @@ export default function Home() {
           </div>
 
           {/* Texto Central */}
-          <div className="philo-text relative z-10 max-w-5xl mx-auto text-center px-6 pointer-events-auto drop-shadow-2xl">
-            <h2 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white leading-[1.1] mb-8 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
-              La moda no es lo que vistes.<br/>
-              <span className="italic text-[#9b3263]">Es cómo habitas el espacio.</span>
+          <div className="philo-text relative z-10 max-w-5xl mx-auto text-center px-6 pointer-events-auto drop-shadow-2xl flex flex-col items-center">
+            
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white leading-tight mb-4 drop-shadow-[0_10px_20px_rgba(0,0,0,0.8)]">
+              ✨ ¿Por qué <span className="italic text-[#ff0163]">Donna Moda</span>?
             </h2>
-            <p className="text-zinc-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto drop-shadow-[0_5px_15px_rgba(0,0,0,0.8)]">
-              En DonnaModa, fusionamos la precisión arquitectónica con la fluidez orgánica. Cada pieza es diseñada no solo para lucir impecable, sino para responder a la cadencia natural de tu cuerpo.
+            <h3 className="text-xl md:text-2xl font-light text-zinc-300 mb-8 uppercase tracking-widest">
+              Tu estilo comienza aquí
+            </h3>
+            
+            <p className="text-zinc-300 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto drop-shadow-md mb-12">
+              En Donna Moda creemos que la moda es una forma de expresar quién eres. Por eso seleccionamos cuidadosamente cada pieza para ayudarte a encontrar prendas que hagan match con tu estilo, personalidad y cada ocasión.
             </p>
+            
+            <div className="text-left max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-6 text-zinc-300">
+              <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/5 hover:border-[#ff0163]/40 transition-colors shadow-2xl">
+                <h4 className="text-white text-lg font-serif mb-2 tracking-wide">✨ Selección con estilo</h4>
+                <p className="font-light text-sm text-zinc-400">Elegimos cada prenda pensando en las tendencias, la versatilidad y los detalles que hacen la diferencia.</p>
+              </div>
+              
+              <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/5 hover:border-[#ff0163]/40 transition-colors shadow-2xl">
+                <h4 className="text-white text-lg font-serif mb-2 tracking-wide">👗 Encuentra tu look</h4>
+                <p className="font-light text-sm text-zinc-400">Desde un look casual para el día hasta ese outfit especial que estabas buscando.</p>
+              </div>
+              
+              <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/5 hover:border-[#ff0163]/40 transition-colors shadow-2xl">
+                <h4 className="text-white text-lg font-serif mb-2 tracking-wide">💖 Atención cercana</h4>
+                <p className="font-light text-sm text-zinc-400">Nos gusta conocer a nuestras clientas y ayudarte a encontrar aquello con lo que realmente te sientas tú.</p>
+              </div>
+              
+              <div className="bg-black/40 backdrop-blur-xl p-6 rounded-[2rem] border border-white/5 hover:border-[#ff0163]/40 transition-colors shadow-2xl">
+                <h4 className="text-white text-lg font-serif mb-2 tracking-wide">📍 Moda cerca de ti</h4>
+                <p className="font-light text-sm text-zinc-400">Visítanos en Puerto Morelos y descubre nuestra colección en persona.</p>
+              </div>
+            </div>
+            
           </div>
 
-          {/* Card Flotante Derecha */}
-          <div className="philo-card-right absolute right-4 lg:right-[10%] w-[250px] md:w-[350px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/5 pointer-events-none hidden md:block">
-            <img src="/multimedia/model2.jpg" alt="DonnaModa Artesanía" className="w-full h-full object-cover object-center opacity-60" />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0f0f11] via-transparent to-transparent" />
-          </div>
+
 
         </div>
       </section>

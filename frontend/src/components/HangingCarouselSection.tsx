@@ -104,7 +104,8 @@ export default function HangingCarouselSection() {
           La Forma del <span className="italic text-[#ff0163]">Movimiento</span>
         </h2>
         <p className="text-zinc-400 text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto drop-shadow-lg">
-          Desliza para explorar. Observa cómo cada diseño cobra vida con el movimiento.
+          Tu próximo look te está esperando.<br className="hidden md:block" />
+          Descubre la colección de Donna Moda y encuentra piezas que hablen de ti.
         </p>
       </div>
 
