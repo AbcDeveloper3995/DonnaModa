@@ -49,9 +49,14 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
       {/* Card de la prenda */}
       <motion.div
         layoutId={`card-${uniqueId}`}
-        className="w-[260px] md:w-[320px] aspect-[3/4] relative rounded-[2.5rem] overflow-hidden shadow-[0_15px_40px_rgba(0,0,0,0.6)] group-hover/card:shadow-[0_25px_60px_rgba(255,1,99,0.4)] border border-white/10 group-hover/card:border-[#ff0163]/50 transition-all duration-700 origin-top bg-zinc-900/50 backdrop-blur-sm"
+        className="w-[260px] md:w-[320px] aspect-[3/4] relative shadow-[0_15px_40px_rgba(0,0,0,0.6)] group-hover/card:shadow-[0_25px_60px_rgba(255,1,99,0.4)] border border-white/10 group-hover/card:border-[#ff0163]/50 transition-all duration-700 origin-top bg-zinc-900/50 backdrop-blur-sm"
+        style={{ borderRadius: "2.5rem", overflow: "hidden" }}
       >
-        <motion.div className="w-full h-full relative overflow-hidden" layoutId={`card-image-container-${uniqueId}`}>
+        <motion.div 
+          className="w-full h-full relative" 
+          layoutId={`card-image-container-${uniqueId}`}
+          style={{ borderRadius: "2.5rem", overflow: "hidden" }}
+        >
           
           {/* Imagen de fondo con Parallax CSS (pan lento) */}
           <div className="absolute inset-0 w-[110%] h-[110%] -left-[5%] top-0 group-hover/card:scale-105 transition-transform duration-[2s] ease-out will-change-transform">
@@ -95,7 +100,6 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
 export default function HangingCarouselSection() {
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-  const x = useMotionValue(0);
 
   const activeItemData = activeItem ? CLOTHING_ITEMS.find(item => item.id === activeItem.replace('-dup', '')) || CLOTHING_ITEMS[0] : null;
 
@@ -114,9 +118,8 @@ export default function HangingCarouselSection() {
       </div>
 
       {/* Contenedor del Carrusel */}
-      {/* Usamos un cursor personalizado indicando que se puede arrastrar */}
       <div 
-        className="relative w-full overflow-hidden flex items-start pt-10 pb-32 cursor-grab active:cursor-grabbing"
+        className="relative w-full overflow-hidden flex items-start pt-10 pb-32"
         ref={containerRef}
       >
         {/* Barra del armario (Rod) iluminada */}
@@ -125,9 +128,6 @@ export default function HangingCarouselSection() {
         {/* Tracks infinitos (Animación vía CSS para simplicidad y mejor compatibilidad con interactividad si es necesario, o framer motion puro) */}
         <motion.div 
           className="flex w-fit group will-change-transform"
-          drag="x"
-          dragConstraints={containerRef}
-          style={{ x }}
         >
           {[1, 2].map((trackIndex) => (
             <motion.div
@@ -166,8 +166,8 @@ export default function HangingCarouselSection() {
             <div className="fixed inset-0 z-[101] flex items-center justify-center p-4 md:p-8 pointer-events-none">
               <motion.div
                 layoutId={`card-${activeItem}`}
-                className="relative h-[90vh] md:h-[85vh] aspect-[9/16] md:aspect-[3/4] lg:aspect-[4/5] bg-[#0a0a0c] rounded-[2rem] overflow-hidden shadow-[0_0_100px_rgba(255,1,99,0.3)] border border-[#ff0163]/30 pointer-events-auto flex mx-auto"
-                style={{ borderRadius: "2rem" }}
+                className="relative h-[90vh] md:h-[85vh] aspect-[9/16] md:aspect-[3/4] lg:aspect-[4/5] bg-[#0a0a0c] shadow-[0_0_100px_rgba(255,1,99,0.3)] border border-[#ff0163]/30 pointer-events-auto flex mx-auto"
+                style={{ borderRadius: "2rem", overflow: "hidden" }}
               >
                 <button
                   onClick={() => setActiveItem(null)}
@@ -176,7 +176,11 @@ export default function HangingCarouselSection() {
                   <X className="w-6 h-6" />
                 </button>
 
-                <motion.div className="absolute inset-0" layoutId={`card-image-container-${activeItem}`}>
+                <motion.div 
+                  className="absolute inset-0" 
+                  layoutId={`card-image-container-${activeItem}`}
+                  style={{ borderRadius: "2rem", overflow: "hidden" }}
+                >
                   <video 
                     autoPlay 
                     loop 
