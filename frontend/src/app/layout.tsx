@@ -13,8 +13,32 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: "DonnaModa | Boutique Inmersiva",
-  description: "Descubre la nueva colección de DonnaModa en una experiencia inmersiva.",
+  title: "Donna Moda | Boutique de Moda Femenina y Estilo Premium",
+  description: "Descubre la colección exclusiva de Donna Moda. Ropa de mujer, vestidos elegantes, outfits casuales y las últimas tendencias de temporada. Visítanos en Puerto Morelos.",
+  keywords: ["moda femenina", "boutique", "ropa de mujer", "vestidos", "tendencias", "Puerto Morelos", "Donna Moda", "fashion"],
+  openGraph: {
+    title: "Donna Moda | Boutique Inmersiva",
+    description: "Tu estilo comienza aquí. Colección exclusiva y atención cercana en Puerto Morelos.",
+    url: "https://donnamoda.com",
+    siteName: "Donna Moda",
+    images: [
+      {
+        url: "/multimedia/5.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Donna Moda Colección",
+      },
+    ],
+    locale: "es_MX",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Donna Moda | Tu estilo comienza aquí",
+    description: "Descubre prendas que hagan match con tu personalidad. Colecciones premium.",
+    images: ["/multimedia/5.jpg"],
+  },
+  robots: "index, follow",
 };
 
 export default function RootLayout({

@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence, useAnimation, useMotionValue } from "framer-motion";
 import { X, Maximize2 } from "lucide-react";
@@ -52,11 +54,12 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
         <motion.div className="w-full h-full relative overflow-hidden" layoutId={`card-image-container-${uniqueId}`}>
           
           {/* Imagen de fondo con Parallax CSS (pan lento) */}
-          <div className="absolute inset-0 w-[110%] h-[110%] -left-[5%] top-0 group-hover/card:scale-105 transition-transform duration-[2s] ease-out">
-            <img 
+          <div className="absolute inset-0 w-[110%] h-[110%] -left-[5%] top-0 group-hover/card:scale-105 transition-transform duration-[2s] ease-out will-change-transform">
+            <Image 
               src={item.image} 
               alt={item.title} 
-              className={`w-full h-full object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
+              fill
+              className={`object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
             />
             {/* Video miniatura en hover */}
             <video 
@@ -64,6 +67,7 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
               muted 
               playsInline 
               loop
+              preload="none"
               className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
               src={item.video} 
             />
@@ -120,7 +124,7 @@ export default function HangingCarouselSection() {
 
         {/* Tracks infinitos (Animación vía CSS para simplicidad y mejor compatibilidad con interactividad si es necesario, o framer motion puro) */}
         <motion.div 
-          className="flex w-fit group"
+          className="flex w-fit group will-change-transform"
           drag="x"
           dragConstraints={containerRef}
           style={{ x }}

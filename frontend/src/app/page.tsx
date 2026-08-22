@@ -1,7 +1,14 @@
 "use client";
-import CanvasSequence from "@/components/CanvasSequence";
-import ParticlesBackground from "@/components/ParticlesBackground";
+import dynamic from "next/dynamic";
+import Image from "next/image";
 import HangingCarouselSection from "@/components/HangingCarouselSection";
+
+const CanvasSequence = dynamic(() => import("@/components/CanvasSequence"), {
+  ssr: false, // Canvas uses window
+});
+const ParticlesBackground = dynamic(() => import("@/components/ParticlesBackground"), {
+  ssr: false, // Particles use window
+});
 import { useRef, useState, useEffect } from "react";
 import { ChevronDown, ArrowRight, MapPin, Mail, ExternalLink } from "lucide-react";
 import gsap from "gsap";
@@ -149,7 +156,7 @@ export default function Home() {
           className="pointer-events-auto cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-6 md:h-8 w-auto drop-shadow-md" />
+          <Image src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" width={200} height={50} className="h-6 md:h-8 w-auto drop-shadow-md object-contain" />
         </div>
         <ul className={`flex space-x-6 md:space-x-8 text-xs md:text-sm tracking-widest uppercase pointer-events-auto text-white ${
           navSolid ? "" : "mix-blend-difference"
@@ -168,8 +175,8 @@ export default function Home() {
         <div className="w-full bg-[#0a0a0c]/60 backdrop-blur-2xl border-t border-[#ff0163]/20 rounded-t-[3rem] shadow-[0_-20px_50px_rgba(0,0,0,0.5)] min-h-screen relative flex items-center justify-center py-32" style={{ transformStyle: "preserve-3d" }}>
           
           {/* Card Flotante Izquierda */}
-          <div className="philo-card-left absolute left-4 lg:left-[10%] w-[250px] md:w-[350px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/5 pointer-events-none hidden md:block">
-            <img src="/multimedia/model1.jpg" alt="DonnaModa Filosofía" className="w-full h-full object-cover object-top opacity-60" />
+          <div className="philo-card-left absolute left-4 lg:left-[10%] w-[250px] md:w-[350px] aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl border border-white/5 pointer-events-none hidden md:block will-change-transform">
+            <Image src="/multimedia/model1.jpg" alt="DonnaModa Filosofía" fill className="object-cover object-top opacity-60" />
             <div className="absolute inset-0 bg-gradient-to-t from-[#0f0f11] via-transparent to-transparent" />
           </div>
 
@@ -222,9 +229,9 @@ export default function Home() {
       </div>
 
       {/* --- TESTIMONIOS --- */}
-      <section className="relative w-full py-32 z-30 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] stack-section">
+      <section className="relative w-full py-32 z-30 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] stack-section will-change-transform">
         <div className="absolute inset-0 w-full h-full">
-          <img src="/multimedia/5.jpg" className="parallax-img w-full h-[130%] object-cover object-center -mt-[15%]" alt="Fondo Editorial" style={{ filter: 'grayscale(100%) brightness(0.8)' }} />
+          <Image src="/multimedia/5.jpg" className="parallax-img object-cover object-center scale-[1.3] will-change-transform" alt="Fondo Editorial" fill style={{ filter: 'grayscale(100%) brightness(0.8)' }} />
           <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/70 to-[#050505]/90 backdrop-blur-[1px]" />
         </div>
         <div className="relative max-w-6xl mx-auto px-6 z-10">
@@ -285,7 +292,10 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div className="order-2 md:order-1">
             <div className="relative rounded-[2rem] overflow-hidden shadow-2xl aspect-[4/5] border border-white/10">
-              <img src="/multimedia/1.jpg" alt="DonnaModa Detalles" className="parallax-img w-full h-[120%] object-cover object-center -mt-[10%]" />
+              <div className="absolute inset-0 pointer-events-none overflow-hidden">
+                <div className="absolute inset-0 bg-black/60 z-10" />
+                <Image src="/multimedia/1.jpg" alt="DonnaModa Detalles" fill className="parallax-img object-cover object-center scale-[1.2] will-change-transform" />
+              </div>
               <div className="absolute inset-0 bg-gradient-to-tr from-[#9b3263]/30 to-transparent mix-blend-overlay" />
             </div>
           </div>
@@ -356,7 +366,7 @@ export default function Home() {
         <footer className="relative w-full border-t border-white/10 pt-16 pb-8 px-6 md:px-12 mt-24">
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 relative z-10">
           <div className="md:col-span-1">
-            <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-10 w-auto opacity-90 mb-6 drop-shadow-sm" />
+            <Image src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" width={200} height={50} className="h-10 w-auto opacity-90 mb-6 drop-shadow-sm object-contain" />
             <p className="text-zinc-500 font-light text-sm max-w-xs">
               Elegancia atemporal y precisión arquitectónica para la mujer contemporánea.
             </p>
