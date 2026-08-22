@@ -136,12 +136,12 @@ export default function Home() {
     <main ref={container} className="bg-[#0f0f11] min-h-screen text-zinc-200 font-sans selection:bg-[#ff0163] selection:text-white">
       
       {/* Navegación */}
-      <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 pointer-events-none mix-blend-difference text-white">
+      <nav className="fixed top-0 left-0 w-full p-8 flex justify-between items-center z-50 pointer-events-none">
         <div className="pointer-events-auto">
-          <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-6 md:h-8 w-auto brightness-0 invert" />
+          <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-6 md:h-8 w-auto drop-shadow-md" />
         </div>
-        <ul className="flex space-x-8 text-sm tracking-widest uppercase pointer-events-auto">
-          <li><button className="hover:text-[#ff0163] transition-colors">Colección</button></li>
+        <ul className="flex space-x-8 text-sm tracking-widest uppercase pointer-events-auto mix-blend-difference text-white">
+          <li><button onClick={() => document.getElementById('carousel')?.scrollIntoView({ behavior: 'smooth' })} className="hover:text-[#ff0163] transition-colors">Colección</button></li>
           <li><button className="hover:text-[#ff0163] transition-colors">Boutique</button></li>
         </ul>
       </nav>
@@ -181,7 +181,9 @@ export default function Home() {
       </section>
 
       {/* --- HANGING CAROUSEL --- */}
-      <HangingCarouselSection />
+      <div id="carousel">
+        <HangingCarouselSection />
+      </div>
 
       {/* --- TESTIMONIOS --- */}
       <section className="relative w-full py-32 z-30 rounded-t-[3rem] overflow-hidden shadow-[0_-30px_50px_rgba(0,0,0,0.8)] border-t border-white/10 bg-[#050505] stack-section">
@@ -318,7 +320,7 @@ export default function Home() {
         <footer className="relative w-full border-t border-white/10 pt-16 pb-8 px-6 md:px-12 mt-24">
           <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8 relative z-10">
           <div className="md:col-span-1">
-            <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-10 w-auto brightness-0 invert opacity-90 mb-6" />
+            <img src="/multimedia/logo/logodonnamoda.png" alt="DonnaModa Logo" className="h-10 w-auto opacity-90 mb-6 drop-shadow-sm" />
             <p className="text-zinc-500 font-light text-sm max-w-xs">
               Elegancia atemporal y precisión arquitectónica para la mujer contemporánea.
             </p>
