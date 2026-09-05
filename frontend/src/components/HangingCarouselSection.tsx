@@ -9,26 +9,23 @@ import ParticlesBackground from "@/components/ParticlesBackground";
 
 // Añadimos offset vertical para asimetría
 const CLOTHING_ITEMS = [
-  { id: "item-1", title: "Colección V6", description: "Fluidez Natural", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
-  { id: "item-2", title: "DonnaModa", description: "Estructura Pura", offset: "0px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
-  { id: "item-3", title: "Boutique", description: "Elegancia Atemporal", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
-  { id: "item-4", title: "Artesanía", description: "Corte Preciso", offset: "0px", video: "/multimedia/Model_walks_on_fashion_runway_202608181749.mp4", image: "/multimedia/model2.jpg" },
-  { id: "item-5", title: "Colección V6", description: "Movimiento", offset: "0px", video: "/multimedia/PixVerse_V6_Image_Text_540P_mujer_modelando_la.mp4", image: "/multimedia/model1.jpg" },
+  { id: "item-1", title: "Colección V6", description: "Fluidez Natural", offset: "0px", video: "/multimedia/v1.mp4", image: "/multimedia/img1.png" },
+  { id: "item-2", title: "DonnaModa", description: "Estructura Pura", offset: "0px", video: "/multimedia/v2.mp4", image: "/multimedia/img2.png" },
+  { id: "item-3", title: "Boutique", description: "Vanguardia", offset: "0px", video: "/multimedia/v3.gif", image: "/multimedia/img3.png" },
+  { id: "item-4", title: "Artesanía", description: "Corte Preciso", offset: "0px", video: "/multimedia/v4.gif", image: "/multimedia/img4.png" },
+  { id: "item-5", title: "Esencia", description: "Líneas Limpias", offset: "0px", video: "/multimedia/v5.gif", image: "/multimedia/img5.png" },
+  { id: "item-6", title: "Colección V6", description: "Texturas", offset: "0px", video: "/multimedia/v6.gif", image: "/multimedia/img6.png" },
+  { id: "item-7", title: "DonnaModa", description: "Alta Costura", offset: "0px", video: "/multimedia/v1.mp4", image: "/multimedia/img1.png" },
+  { id: "item-8", title: "Boutique", description: "Siluetas", offset: "0px", video: "/multimedia/v2.mp4", image: "/multimedia/img2.png" },
+  { id: "item-9", title: "Artesanía", description: "Armonía", offset: "0px", video: "/multimedia/v3.gif", image: "/multimedia/img3.png" },
+  { id: "item-10", title: "Colección V6", description: "Movimiento", offset: "0px", video: "/multimedia/v4.gif", image: "/multimedia/img4.png" },
+  { id: "item-11", title: "DonnaModa", description: "Esencia", offset: "0px", video: "/multimedia/v5.gif", image: "/multimedia/img5.png" },
+  { id: "item-12", title: "Boutique", description: "Vanguardia", offset: "0px", video: "/multimedia/v6.gif", image: "/multimedia/img6.png" },
 ];
 
 function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackIndex: number, setActiveItem: (id: string) => void }) {
   const [isHovered, setIsHovered] = useState(false);
   const uniqueId = trackIndex === 2 ? `${item.id}-dup` : item.id;
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  useEffect(() => {
-    if (isHovered && videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    } else if (!isHovered && videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
-  }, [isHovered]);
 
   return (
     <div 
@@ -40,7 +37,7 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
     >
       {/* Gancho de Ropa SVG */}
       <div className="relative z-10 -mb-[2px]">
-        <svg width="80" height="50" viewBox="0 0 80 50" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#ff0163] drop-shadow-[0_2px_5px_rgba(255,1,99,0.3)]">
+        <svg width="80" height="50" viewBox="0 0 80 50" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-[#ff0163] drop-shadow-md">
           <path d="M 40,20 C 40,20 40,12 40,8 C 40,2 50,2 50,10 C 50,16 40,20 40,20" className="text-[#9b3263]" strokeWidth="3" />
           <path d="M 40,20 L 4,45 C 2,46 2,48 4,48 L 76,48 C 78,48 78,46 76,45 L 40,20" strokeWidth="2.5" fill="rgba(255,1,99,0.05)" />
         </svg>
@@ -49,7 +46,7 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
       {/* Card de la prenda */}
       <motion.div
         layoutId={`card-${uniqueId}`}
-        className="w-[260px] md:w-[320px] aspect-[3/4] relative shadow-[0_15px_40px_rgba(0,0,0,0.6)] group-hover/card:shadow-[0_25px_60px_rgba(255,1,99,0.4)] border border-white/10 group-hover/card:border-[#ff0163]/50 transition-all duration-700 origin-top bg-zinc-900/50 backdrop-blur-sm"
+        className="w-[260px] md:w-[320px] aspect-[3/4] relative shadow-2xl group-hover/card:shadow-[0_20px_50px_rgba(255,1,99,0.3)] border border-white/10 group-hover/card:border-[#ff0163]/50 transition-all duration-700 origin-top bg-zinc-900"
         style={{ borderRadius: "2.5rem", overflow: "hidden" }}
       >
         <motion.div 
@@ -58,27 +55,35 @@ function CarouselCard({ item, trackIndex, setActiveItem }: { item: any, trackInd
           style={{ borderRadius: "2.5rem", overflow: "hidden" }}
         >
           
-          {/* Imagen de fondo con Parallax CSS (pan lento) */}
-          <div className="absolute inset-0 w-[110%] h-[110%] -left-[5%] top-0 group-hover/card:scale-105 transition-transform duration-[2s] ease-out will-change-transform">
+          <div className="absolute inset-0 w-full h-full group-hover/card:scale-105 transition-transform duration-700 ease-out will-change-transform">
             <Image 
               src={item.image} 
               alt={item.title} 
               fill
               className={`object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-0' : 'opacity-100'}`} 
             />
-            {/* Video miniatura en hover */}
-            <video 
-              ref={videoRef}
-              muted 
-              playsInline 
-              loop
-              preload="none"
-              className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
-              src={item.video} 
-            />
+            {/* Video miniatura en hover montado condicionalmente para mejor rendimiento */}
+            {isHovered && (
+              item.video.endsWith('.mp4') ? (
+                <video 
+                  autoPlay
+                  muted 
+                  playsInline 
+                  loop
+                  className="absolute inset-0 w-full h-full object-cover object-top opacity-100"
+                  src={item.video} 
+                />
+              ) : (
+                <img
+                  src={item.video}
+                  alt={item.title}
+                  className="absolute inset-0 w-full h-full object-cover object-top opacity-100"
+                />
+              )
+            )}
           </div>
 
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 group-hover/card:opacity-60 transition-opacity duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent opacity-80 group-hover/card:opacity-50 transition-opacity duration-500" />
           
           {/* Icono de expandir */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 scale-95 group-hover/card:scale-100">
@@ -136,7 +141,7 @@ export default function HangingCarouselSection() {
               animate={{ x: ["0%", "-100%"] }}
               transition={{
                 repeat: Infinity,
-                duration: 40,
+                duration: 96,
                 ease: "linear",
               }}
               style={{ paddingRight: "2rem" }}
@@ -181,14 +186,22 @@ export default function HangingCarouselSection() {
                   layoutId={`card-image-container-${activeItem}`}
                   style={{ borderRadius: "2rem", overflow: "hidden" }}
                 >
-                  <video 
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
-                    className="w-full h-full object-cover opacity-95"
-                    src={activeItemData.video} 
-                  />
+                  {activeItemData.video.endsWith('.mp4') ? (
+                    <video 
+                      autoPlay 
+                      loop 
+                      muted 
+                      playsInline 
+                      className="w-full h-full object-cover opacity-95"
+                      src={activeItemData.video} 
+                    />
+                  ) : (
+                    <img
+                      src={activeItemData.video}
+                      alt={activeItemData.title}
+                      className="w-full h-full object-cover opacity-95"
+                    />
+                  )}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent md:bg-gradient-to-tr" />
                   
                   <motion.div 
